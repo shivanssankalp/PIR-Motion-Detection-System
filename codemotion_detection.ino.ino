@@ -1,21 +1,47 @@
-// C++ code
-//
-/*
-  This program blinks pin 13 of the Arduino (the
-  built-in LED)
-*/
+// PIR sensor pin
+const int pirPin = 2;
 
-void setup()
-{
-  pinMode(LED_BUILTIN, OUTPUT);
+// LED pin
+const int ledPin = 13;
+
+void setup() {
+
+  // Set PIR as input
+  pinMode(pirPin, INPUT);
+
+  // Set LED as output
+  pinMode(ledPin, OUTPUT);
+
+  // Start serial communication
+  Serial.begin(9600);
+
+  // Print startup message
+  Serial.println("Motion Detection System Started");
 }
 
-void loop()
-{
-  // turn the LED on (HIGH is the voltage level)
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000); // Wait for 1000 millisecond(s)
-  // turn the LED off by making the voltage LOW
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000); // Wait for 1000 millisecond(s)
+void loop() {
+
+  // Read PIR sensor
+  int motion = digitalRead(pirPin);
+
+  // Check motion
+  if (motion == HIGH) {
+
+    // Turn LED ON
+    digitalWrite(ledPin, HIGH);
+
+    // Print motion detected
+    Serial.println("Motion Detected!");
+
+  } else {
+
+    // Turn LED OFF
+    digitalWrite(ledPin, LOW);
+
+    // Print no motion
+    Serial.println("No Motion");
+  }
+
+  // Wait 100ms
+  delay(100);
 }
